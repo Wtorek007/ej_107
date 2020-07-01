@@ -2,8 +2,13 @@ package com.for_comprehension.function.E02;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Optional;
 
 class OptionalsRefactor {
+
+    public Optional<Person> findOptionalPerson(int id) {
+        return Optional.ofNullable(findPerson(id));
+    }
 
     private Person findPerson(int id) {
         switch(id) {

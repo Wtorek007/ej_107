@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static com.for_comprehension.function.E02.Optionals.L1_bruteForceGet;
 import static com.for_comprehension.function.E02.Optionals.L2_customException;
@@ -20,6 +21,7 @@ public class OptionalsTest {
         assertThat(L1_bruteForceGet().apply(42)).isInstanceOf(Optionals.Person.class);
         assertThatThrownBy(() -> L1_bruteForceGet().apply(17823)).isInstanceOf(NoSuchElementException.class);
     }
+
 
     @Test
     public void l2_bruteForceGet() {
