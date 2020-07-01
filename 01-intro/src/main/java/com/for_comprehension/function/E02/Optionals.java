@@ -23,7 +23,7 @@ class Optionals {
      */
     static Function<Integer, Person> L1_bruteForceGet() {
         return id -> {
-            return null;
+            return findOneById(id).get();
         };
     }
 
@@ -34,7 +34,7 @@ class Optionals {
      */
     static Function<Integer, Person> L2_customException() {
         return id -> {
-            return null;
+            return findOneById(id).orElseThrow(IllegalStateException::new);
         };
     }
 
@@ -43,7 +43,9 @@ class Optionals {
      */
     static Function<Integer, String> L3_defaultValue() {
         return id -> {
-            return null;
+            return findOneById(id)
+              .map(Person::getName)
+              .orElse(DEFAULT);
         };
     }
 
@@ -52,7 +54,9 @@ class Optionals {
      */
     static BiFunction<Integer, Supplier<String>, String> L4_defaultValueMethodResult() {
         return (id, function) -> {
-            return null;
+            return findOneById(id)
+              .map(Person::getName)
+              .orElseGet(function);
         };
     }
 
@@ -64,7 +68,11 @@ class Optionals {
      */
     static Function<Integer, String> L5_processValue() {
         return id -> {
-            return null;
+            return findOneById(id)
+              .map(Person::getName)
+              .filter(s -> !s.isEmpty())
+              .map(String::toUpperCase)
+              .orElse(DEFAULT);
         };
     }
 
@@ -77,7 +85,11 @@ class Optionals {
      */
     static Function<Integer, Integer> L6_nestedOptionals() {
         return id -> {
-            return null;
+            return findOneById(id)        // 1
+              .map(Person::getName)       // 2
+              .filter(s -> !s.isEmpty())  // 3
+              .flatMap(s -> findAgeByName(s)) //4
+              .orElse(42); //5
         };
     }
 
