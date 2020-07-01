@@ -17,7 +17,7 @@ final class FunctionalInterfaces {
      */
     static Supplier<Integer> L1_toConstant() {
         return () -> {
-            return null;
+            return 42;
         };
     }
 
