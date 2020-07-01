@@ -2,7 +2,6 @@ package com.bottega.demo;
 
 import org.junit.Test;
 
-import javax.swing.text.html.Option;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +20,6 @@ public class OptionalTest {
         // declarative
         integers.forEach(System.out::println);
     }
-
 
     // imperative Optional :) unikać
     @Test
@@ -47,5 +45,4 @@ public class OptionalTest {
     Optional<String> findUser(int id) {
         return Optional.of("");
     }
-
 }
