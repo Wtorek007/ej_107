@@ -1,11 +1,9 @@
 package com.bottega.main;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-class FunctionalInterfaces {
+class Lambdas {
 
     public static void main(String[] args) {
         int a = 42;
@@ -27,7 +25,6 @@ class FunctionalInterfaces {
         Function<Integer, Integer> lambda2 = (i) -> i;
         Function<Integer, Integer> lambda3 = (Integer i) -> i;
     }
-
 
     public Integer add(int a, int b) {
         return a + b;
