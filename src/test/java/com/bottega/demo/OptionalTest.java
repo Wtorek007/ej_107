@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class OptionalTest {
 
@@ -37,12 +38,48 @@ public class OptionalTest {
     public void optional_2() throws Exception {
         Optional<Integer> maybeInteger = Optional.of(1);
 
+        Optional<Integer> maybeDoubleInteger = maybeInteger
+          .filter(value -> value > 123)
+          .map(value -> 2 * value)
+          .map(value -> value - 1)
+          .map(value -> 3 * value);
+
         Integer result = maybeInteger.orElse(42);
         Integer result2 = maybeInteger.orElseGet(() -> 42);
         Integer result3 = maybeInteger.orElseThrow(IllegalStateException::new);
     }
 
+    @Test
+    public void optional_3() throws Exception {
+        Optional<Integer> maybeInteger = Optional.of(1);
+
+        Optional<String> s = maybeInteger
+          .flatMap(i -> findUser(i));
+
+        Optional<Integer> s2 = maybeInteger
+          .map(i -> 42)
+          .flatMap(i -> Optional.of(42));
+    }
+
     Optional<String> findUser(int id) {
         return Optional.of("");
+    }
+
+    @Test
+    public void example_4() throws Exception {
+        Optional<Integer> maybeInteger = Optional.of(1);
+
+        Integer result = maybeInteger.orElseGet(() -> slowFindUser(1231));
+
+        System.out.println(result);
+    }
+
+    Integer slowFindUser(int id) {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            //
+        }
+        return 429198371;
     }
 }
