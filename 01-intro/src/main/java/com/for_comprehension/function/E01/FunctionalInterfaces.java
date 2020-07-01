@@ -17,7 +17,7 @@ final class FunctionalInterfaces {
      */
     static Supplier<Integer> L1_toConstant() {
         return () -> {
-            return 42;
+            return null;
         };
     }
 
@@ -26,7 +26,7 @@ final class FunctionalInterfaces {
      */
     static Function<String, String> L2_toUpperCase() {
         return s -> {
-            return s.toUpperCase();
+            return null;
         };
     }
 
@@ -35,7 +35,7 @@ final class FunctionalInterfaces {
      */
     static Function<String, Long> L3_toLong() {
         return s -> {
-            return Long.valueOf(s);
+            return null;
         };
     }
 
@@ -44,7 +44,7 @@ final class FunctionalInterfaces {
      */
     static IntPredicate L4_to42IntegerPredicate() {
         return i -> {
-            return i > 42;
+            return true;
         };
     }
 
@@ -53,7 +53,7 @@ final class FunctionalInterfaces {
      */
     static Function<Integer, Predicate<Integer>> L5_toIntegerPredicate() {
         return i -> {
-            return integer -> integer > i;
+            return null;
         };
     }
 
@@ -62,7 +62,7 @@ final class FunctionalInterfaces {
      */
     static Function<String, URI> L6_toURI() {
         return str -> {
-            return URI.create(str);
+            return null;
         };
     }
 
@@ -71,7 +71,7 @@ final class FunctionalInterfaces {
      */
     static <T> Function<Supplier<T>, Callable<T>> L7_toCallable() {
         return s -> {
-            return s::get;
+            return null;
         };
     }
 
@@ -81,7 +81,7 @@ final class FunctionalInterfaces {
      */
     static <T> BinaryOperator<Function<T, T>> L8_functionComposition() {
         return (f1, f2) -> {
-            return f1.andThen(f2);
+            return null;
         };
     }
 }
