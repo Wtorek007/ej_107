@@ -169,4 +169,19 @@ public class StreamTest {
 
         System.out.println(result2);
     }
+
+    @Test
+    public void example_12() throws Exception {
+        Stream.generate(() -> 42)
+          .limit(10)
+          .forEach(System.out::println);
+
+    }
+
+    @Test
+    public void example_13() throws Exception {
+        Stream.iterate(1, i -> i * 2)
+          .limit(10)
+          .forEach(System.out::println);
+    }
 }

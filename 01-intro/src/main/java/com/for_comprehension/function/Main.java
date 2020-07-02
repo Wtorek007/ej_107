@@ -1,19 +1,13 @@
 package com.for_comprehension.function;
 
-/**
- * - FP vs OOP
- * - monads
- * - call by value vs call by name
- * - persistent collections
- * - lambda vs exceptions
- * - intersection types
- * - algebraic data types
- * - stream bugs
- * - optional vs null
- * - parallel streams
- */
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Stream;
+
 class Main {
 
     public static void main(String[] args) {
+
+
+
     }
 }
