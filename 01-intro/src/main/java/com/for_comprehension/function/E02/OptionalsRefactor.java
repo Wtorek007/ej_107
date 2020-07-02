@@ -6,11 +6,12 @@ import java.util.Optional;
 
 class OptionalsRefactor {
 
+    // jak nie chcemy zmieniac oryginalnej metody w środku
     public Optional<Person> findOptionalPerson(int id) {
-        return Optional.ofNullable(findPerson(id));
+        return Optional.ofNullable(findPersonLegacy(id));
     }
 
-    private Person findPerson(int id) {
+    private Person findPersonLegacy(int id) {
         switch(id) {
             case 1:
                 return new Person("James",48, 193, LocalDate.of(2000, Month.NOVEMBER, 1));
@@ -23,29 +24,48 @@ class OptionalsRefactor {
         }
     }
 
-    private String findAddress(Person person) {
-        if (person.getBirthDate().isAfter(LocalDate.of(2000, Month.JANUARY, 1))) {
-            return "";
+    private Optional<Person> findPerson(int id) {
+        switch(id) {
+            case 1:
+                Person james = new Person("James", 48, 193, LocalDate.of(2000, Month.NOVEMBER, 1));
+                return Optional.of(james);
+            case 2:
+                Person john = new Person("John", 62, 169, LocalDate.of(1989, Month.OCTOBER, 21));
+                return Optional.of(john);
+            default:
+                return Optional.empty();
         }
-        if (person.getBirthDate().isAfter(LocalDate.of(1980, Month.JANUARY, 1))) {
-            return " Some St.   ";
-        }
-        return null;
     }
 
-    private String findAddressById(int id) {
-        final Person personOrNull = findPerson(id);
-        if (personOrNull != null) {
+    private Optional<String> findAddress(Person person) {
+        if (person.getBirthDate().isAfter(LocalDate.of(2000, Month.JANUARY, 1))) {
+            return Optional.of("");
+        }
+        if (person.getBirthDate().isAfter(LocalDate.of(1980, Month.JANUARY, 1))) {
+            return Optional.of(" Some St.   ");
+        }
+        return Optional.empty();
+    }
+
+    private Optional<String> findAddressById(int id) {
+        return findOptionalPerson(id)
+          .filter(person -> person.getHeight() > 168)
+          .flatMap(this::findAddress)
+          .filter(address -> !address.isEmpty())
+          .map(String::trim);
+
+
+        /*if (personOrNull != null) {
             if (personOrNull.getHeight() > 168) {
                 final String addressOrNull = findAddress(personOrNull);
                 if (addressOrNull != null && !addressOrNull.isEmpty()) {
-                    return addressOrNull.trim();
+                    return Optional.of(addressOrNull.trim());
                 } else {
-                    return null;
+                    return Optional.empty();
                 }
             }
         }
-        return null;
+        return Optional.empty();*/
     }
 
 

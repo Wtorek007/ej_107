@@ -35,7 +35,11 @@ class Streams {
      */
     static Function<List<String>, List<String>> L2_upperCaseAllAndFilter() {
         return input -> {
-            return null;
+            return input
+              .stream()
+              .filter(str -> str.length() > 6)
+              .map(str -> str.toUpperCase())
+              .collect(toList());
         };
     }
 
