@@ -57,6 +57,7 @@ public class UnmodifiableListCollector<T> implements Collector<T, ArrayList<T>, 
 
     @Override
     public Set<Characteristics> characteristics() {
-        return null;
+        return Collections.emptyNavigableSet();
+
     }
 }
