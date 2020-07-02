@@ -37,27 +37,34 @@ public class UnmodifiableListCollector<T> implements Collector<T, ArrayList<T>, 
 
     @Override
     public Supplier<ArrayList<T>> supplier() {
-        return null;
+        return () -> new ArrayList<>();
     }
 
     @Override
     public BiConsumer<ArrayList<T>, T> accumulator() {
-        return null;
+        return (ts, e) -> ts.add(e);
     }
 
     @Override
     public BinaryOperator<ArrayList<T>> combiner() {
-        return null;
+        return (acc1, acc2) -> Stream.concat(acc1.stream(), acc2.stream())
+          .collect(Collectors.toCollection(ArrayList::new));
+
+//        return (acc1, acc2) -> {
+//            ArrayList<T> result = new ArrayList<>();
+//            result.addAll(acc1);
+//            result.addAll(acc2);
+//            return result;
+//        };
     }
 
     @Override
     public Function<ArrayList<T>, List<T>> finisher() {
-        return null;
+        return acc -> Collections.unmodifiableList(acc);
     }
 
     @Override
     public Set<Characteristics> characteristics() {
         return Collections.emptyNavigableSet();
-
     }
 }
