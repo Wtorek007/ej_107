@@ -2,6 +2,7 @@ package com.bottega.demo;
 
 import org.junit.Test;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -183,5 +184,18 @@ public class StreamTest {
         Stream.iterate(1, i -> i * 2)
           .limit(10)
           .forEach(System.out::println);
+    }
+
+    @Test
+    public void example_14() throws Exception {
+        Optional<String> reduce1 = Stream.of("ab", "b")
+          .reduce((s, s2) -> s + s2);
+
+        String reduce = Stream.of("ab", "b")
+          .reduce("", (s, s2) -> s + s2);
+
+        Stream.of(Year.of(2000), Year.of(2001))
+          .reduce((year, year2) -> year.isAfter(year2) ? year : year2)
+          .orElse(Year.of(1989));
     }
 }
