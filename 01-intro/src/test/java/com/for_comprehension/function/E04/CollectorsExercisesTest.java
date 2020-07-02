@@ -51,12 +51,12 @@ public class CollectorsExercisesTest {
     public void l4_toMap() {
 
         // when
-        final Map<String, Integer> result = CollectorsExercises.L4_toMap().apply(asList("42", "7") );
+        final Map<String, Integer> result = CollectorsExercises.L4_toMap().apply(asList("aa", "b") );
 
         // then
         assertThat(result)
-          .containsEntry("42", 2)
-          .containsEntry("7", 1);
+          .containsEntry("AA", 2)
+          .containsEntry("B", 1);
     }
 
     @Test
@@ -80,6 +80,8 @@ public class CollectorsExercisesTest {
 
         // given
         String result = CollectorsExercises.L6_toJson().apply(input);
+
+        System.out.println(result);
 
         // then
         assertThat(result).isEqualTo("{\"name\":\"Linus\",\"age\":\"42\"}");
