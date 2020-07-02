@@ -25,18 +25,14 @@ class CompletableFutures {
      * Complete incoming {@link CompletableFuture} manually with value 42
      */
     static Consumer<CompletableFuture<Integer>> L1_manualCompletion() {
-        return f -> {
-            // TODO
-        };
+        return f -> f.complete(42);
     }
 
     /**
      * Complete incoming {@link CompletableFuture} exceptionally with a {@link NullPointerException}
      */
     static Consumer<CompletableFuture<Integer>> L2_manualExceptionCompletion() {
-        return f -> {
-            // TODO
-        };
+        return f -> f.completeExceptionally(new NullPointerException());
     }
 
     /**
@@ -47,7 +43,8 @@ class CompletableFutures {
      */
     static Function<Integer, CompletableFuture<User>> L3_runAsync() {
         return id -> {
-            return null;
+            return CompletableFuture.supplyAsync(
+              () -> usersClient.getUserById(id));
         };
     }
 
@@ -58,9 +55,8 @@ class CompletableFutures {
      * Essentially, the same as above + execution on a provided thread pool
      */
     static BiFunction<Integer, ExecutorService, CompletableFuture<User>> L4_runAsyncOnACustomPool() {
-        return (id, executor) -> {
-            return null;
-        };
+        return (id, executor) -> CompletableFuture
+          .supplyAsync(() -> usersClient.getUserById(id), executor);
     }
 
     /**
@@ -72,19 +68,23 @@ class CompletableFutures {
      */
     static BiFunction<Integer, Integer, CompletableFuture<List<User>>> L5_runAsyncAndCombine() {
         return (id, id2) -> {
-            return null;
+            CompletableFuture<User> user1 = CompletableFuture
+              .supplyAsync(() -> usersClient.getUserById(id), executor);
+
+            CompletableFuture<User> user2 = CompletableFuture
+              .supplyAsync(() -> usersClient.getUserById(id2), executor);
+
+            return user1.thenCombine(user2, (u1, u2) -> Arrays.asList(u1, u2));
         };
     }
 
     /**
      * Return a combined future which completes with a value of the first completed future
      * <p>
-     * {@link CompletableFuture#thenCombine(CompletionStage, BiFunction)}
+     * {@link CompletableFuture#applyToEither(CompletionStage, Function)}
      */
     static BiFunction<CompletableFuture<Integer>, CompletableFuture<Integer>, CompletableFuture<Integer>> L6_composeFutures() {
-        return (f1, f2) -> {
-            return null;
-        };
+        return (f1, f2) -> f1.applyToEither(f2, i -> i);
     }
 
     /**
@@ -95,7 +95,9 @@ class CompletableFutures {
      */
     static <T> BiFunction<CompletableFuture<T>, CompletableFuture<T>, T> L7_returnValueOfTheFirstCompleted() {
         return (f1, f2) -> {
-            return null;
+            return CompletableFuture.anyOf(f1, f2)
+              .thenApply(v -> (T) v)
+              .join();
         };
     }
 
@@ -106,7 +108,10 @@ class CompletableFutures {
      */
     static <T> Function<List<CompletableFuture<T>>, CompletableFuture<List<T>>> L8_returnResultsAsList() {
         return futures -> {
-            return null;
+            return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+              .thenApply(__ -> futures.stream()
+                .map(CompletableFuture::join)
+                .collect(toList()));
         };
     }
 

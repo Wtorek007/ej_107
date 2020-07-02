@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -100,6 +101,24 @@ public class FutureTest {
         }, e);
 
         System.out.println(r.join());
+    }
+
+    @Test
+    public void example_8() throws Exception {
+        CompletableFuture<Integer> f1 = CompletableFuture.completedFuture(42);
+        CompletableFuture<String> f2 = CompletableFuture.completedFuture("42");
+        CompletableFuture<Thread> f3 = CompletableFuture.completedFuture(new Thread());
+
+        CompletableFuture<Object> objectCompletableFuture = CompletableFuture.anyOf(f1, f2, f3);
+    }
+
+    @Test
+    public void example_9() throws Exception {
+        CompletableFuture<Integer> f1 = CompletableFuture.completedFuture(42);
+        CompletableFuture<String> f2 = CompletableFuture.completedFuture("42");
+        CompletableFuture<Thread> f3 = CompletableFuture.completedFuture(new Thread());
+
+        CompletableFuture<Void> all = CompletableFuture.allOf(f1, f2, f3);
     }
 
     private CompletableFuture<Integer> calculateWithDelay(int i, ExecutorService e) {
