@@ -24,6 +24,14 @@ public class UnmodifiableListCollector<T> implements Collector<T, ArrayList<T>, 
         return new UnmodifiableListCollector<>();
     }
 
+    static <T> Collector<T, ?, List<T>> toUnmodifiableList2() {
+        return Collector.of(
+          ArrayList::new,
+          List::add,
+          (acc1, acc2) -> Stream.concat(acc1.stream(), acc2.stream())
+            .collect(Collectors.toCollection(ArrayList::new)));
+    }
+
     /**
      * Throws {@link UnsupportedOperationException} since {@link Collectors#toCollection(Supplier)}
      * assumes that the target is mutable
