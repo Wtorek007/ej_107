@@ -12,6 +12,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toCollection;
@@ -197,5 +200,18 @@ public class StreamTest {
         Stream.of(Year.of(2000), Year.of(2001))
           .reduce((year, year2) -> year.isAfter(year2) ? year : year2)
           .orElse(Year.of(1989));
+    }
+
+    @Test
+    public void example_15() throws Exception {
+//        IntStream;
+//        LongStream;
+//        DoubleStream;
+
+        IntStream.range(0, 10)
+          .boxed()
+          .mapToInt(i -> i)
+          .boxed()
+          .collect(Collectors.toList());
     }
 }
