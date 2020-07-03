@@ -32,7 +32,7 @@ class ParallelCollectorStream {
 
     private static <T> T withDelay(T value) {
         try {
-//            log.info("Processing {}", value);
+            log.info("Processing {}", value);
             Thread.sleep(400 + ThreadLocalRandom.current().nextInt(5000));
         } catch (InterruptedException e) {
             // ignore shamefully
