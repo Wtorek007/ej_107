@@ -1,14 +1,14 @@
-package com.for_comprehension.function;
+package com.bottega.demo;
 
-class Main {
+class InterruptedException {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws java.lang.InterruptedException {
         Thread thread = new Thread(() -> {
             while (true) {
                 System.out.println("Hello from another thread");
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
+                } catch (java.lang.InterruptedException e) {
                     Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
