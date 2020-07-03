@@ -1,6 +1,6 @@
 package com.bottega.demo;
 
-class InterruptedException {
+class InterruptedExceptionDemo {
 
     public static void main(String[] args) throws java.lang.InterruptedException {
         Thread thread = new Thread(() -> {
